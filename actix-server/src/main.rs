@@ -1,4 +1,4 @@
-#![allow(unused_imports)]
+#![allow(unused_imports, unused_variables)]
 use actix_cors::Cors;
 use actix_web::{
     get, http::header::ContentType, post, web, App, HttpResponse, HttpServer, Responder,
