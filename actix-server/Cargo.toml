@@ -1,0 +1,13 @@
+[package]
+name = "actix-server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-cors = "0.7.0"
+actix-web = "4.5.1"
+copy_to_output = "2.2.0"
+glob = "0.3.1"
+polars = { version = "0.38.3", features = ["lazy", "strings", "json", "dtype-struct"] }
+serde = { version = "1.0.197", features = ["derive"] }
+serde_json = "1.0.115"
