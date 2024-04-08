@@ -2,7 +2,6 @@
  * src/Layout.tsx
  * Basic frontend layout
  */
-
 import { Box, styled, Typography } from '@mui/material'
 import { useTheme } from '@mui/system'
 import { Link } from 'react-router-dom'
@@ -57,6 +56,7 @@ const StyledLink = styled(Link)(
 
 const Layout: React.FC<Props> = ({ children }) => {
   const theme = useTheme()
+  console.log(process.env.REACT_APP_ACTIX_SERVER)
 
   return (
     <Wrapper>

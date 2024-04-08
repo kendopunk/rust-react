@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
     element: <Polars />
   },
   {
-    path: '/',
+    path: '/serde',
     element: <Serde />
   }
 ])

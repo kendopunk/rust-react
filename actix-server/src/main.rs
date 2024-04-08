@@ -6,6 +6,8 @@ use actix_web::{
 use polars::prelude::*;
 use serde::{Deserialize, Serialize};
 
+mod polars_examples;
+
 #[derive(Serialize, Deserialize, Debug)]
 struct W {
     a: i32,
@@ -17,23 +19,24 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         let cors = Cors::permissive();
 
-        App::new()
-            .wrap(cors)
-            .service(hello)
-            .service(echo)
-            .route("/hey", web::get().to(manual_hello))
+        App::new().wrap(cors).service(polars_all_data)
+        // .service(echo)
+        // .route("/hey", web::get().to(manual_hello))
     })
     .bind(("127.0.0.1", 3001))?
     .run()
     .await
 }
 
-#[get("/")]
-async fn hello() -> impl Responder {
-    HttpResponse::Ok()
-        .insert_header(ContentType::json())
-        .body("hello")
+#[get("/polars_all_data")]
+async fn polars_all_data() -> impl Responder {
+    HttpResponse::Ok().body(polars_examples::all_data_handler())
 }
+
+// #[get("/")]
+// async fn polars_all_data() -> impl Responder {
+//     HttpResponse::Ok().body("Hello world!")
+// }
 
 #[post("/echo")]
 async fn echo(req_body: String) -> impl Responder {
