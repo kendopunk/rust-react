@@ -15,6 +15,7 @@ import { defaultColumnConfig } from './polarsColumnConfig'
 export default function PolarsSelectColumns(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true)
   const [gridData, setGridData] = useState<any>([])
+  const URL = `${process.env.REACT_APP_ACTIX_SERVER}/polars_select_columns`
 
   const columns = defaultColumnConfig.filter((f) => {
     return ['organizationId', 'name', 'industry', 'numEmployees'].indexOf(f.field) >= 0
@@ -33,9 +34,7 @@ export default function PolarsSelectColumns(): JSX.Element {
   }
 
   async function fetchData() {
-    const [, data] = await asyncWrapper(
-      genericGetPromise(`${process.env.REACT_APP_ACTIX_SERVER}/polars_select_columns`)
-    )
+    const [, data] = await asyncWrapper(genericGetPromise(URL))
     if (data) {
       setGridData(
         (data?.data ?? []).map((m: any, index: number) => {
@@ -61,6 +60,11 @@ export default function PolarsSelectColumns(): JSX.Element {
     <Box>
       <Box sx={{ mt: 1, mb: 1 }}>
         <Typography variant="caption">Using Polars to select specific columns</Typography>
+      </Box>
+      <Box sx={{ mt: 1, mb: 1 }}>
+        <Typography variant="caption">
+          <b>Endpoint: </b>: {URL}
+        </Typography>
       </Box>
       <DataGrid
         columns={columns}

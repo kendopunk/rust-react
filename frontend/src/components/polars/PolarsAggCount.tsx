@@ -14,6 +14,7 @@ import genericGetPromise from '../../lib/async/genericGetPromise'
 export default function PolarsAggCount(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true)
   const [gridData, setGridData] = useState<any>([])
+  const URL = `${process.env.REACT_APP_ACTIX_SERVER}/polars_agg_count`
 
   const columns: GridColDef[] = [
     {
@@ -41,9 +42,7 @@ export default function PolarsAggCount(): JSX.Element {
   }
 
   async function fetchData() {
-    const [, data] = await asyncWrapper(
-      genericGetPromise(`${process.env.REACT_APP_ACTIX_SERVER}/polars_agg_count`)
-    )
+    const [, data] = await asyncWrapper(genericGetPromise(URL))
     if (data) {
       setGridData(
         (data?.data ?? []).map((m: any, index: number) => {
@@ -70,6 +69,11 @@ export default function PolarsAggCount(): JSX.Element {
       <Box sx={{ mt: 1, mb: 1 }}>
         <Typography variant="caption">
           Aggregation by year of founding, sorted by count descending
+        </Typography>
+      </Box>
+      <Box sx={{ mt: 1, mb: 1 }}>
+        <Typography variant="caption">
+          <b>Endpoint: </b>: {URL}
         </Typography>
       </Box>
       <DataGrid

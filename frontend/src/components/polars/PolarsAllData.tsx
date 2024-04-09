@@ -16,6 +16,8 @@ export default function PolarsAllData(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true)
   const [gridData, setGridData] = useState<any>([])
 
+  const URL = `${process.env.REACT_APP_ACTIX_SERVER}/polars_all_data`
+
   /**
    * Add "id" property to each row of data (required for MUI grid)
    */
@@ -29,9 +31,7 @@ export default function PolarsAllData(): JSX.Element {
   }
 
   async function fetchData() {
-    const [, data] = await asyncWrapper(
-      genericGetPromise(`${process.env.REACT_APP_ACTIX_SERVER}/polars_all_data`)
-    )
+    const [, data] = await asyncWrapper(genericGetPromise(URL))
     if (data) {
       setGridData(
         (data?.data ?? []).map((m: any, index: number) => {
@@ -58,6 +58,11 @@ export default function PolarsAllData(): JSX.Element {
       <Box sx={{ mt: 1, mb: 1 }}>
         <Typography variant="caption">
           Retrieving all data from the organizations CSV file
+        </Typography>
+      </Box>
+      <Box sx={{ mt: 1, mb: 1 }}>
+        <Typography variant="caption">
+          <b>Endpoint: </b>: {URL}
         </Typography>
       </Box>
       <DataGrid

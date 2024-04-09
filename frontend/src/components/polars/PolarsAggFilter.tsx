@@ -14,6 +14,7 @@ import genericGetPromise from '../../lib/async/genericGetPromise'
 export default function PolarsAggFilter(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true)
   const [gridData, setGridData] = useState<any>([])
+  const URL = `${process.env.REACT_APP_ACTIX_SERVER}/polars_agg_filter`
 
   const columns: GridColDef[] = [
     {
@@ -47,9 +48,7 @@ export default function PolarsAggFilter(): JSX.Element {
   }
 
   async function fetchData() {
-    const [, data] = await asyncWrapper(
-      genericGetPromise(`${process.env.REACT_APP_ACTIX_SERVER}/polars_agg_filter`)
-    )
+    const [, data] = await asyncWrapper(genericGetPromise(URL))
     if (data) {
       setGridData(
         (data?.data ?? []).map((m: any, index: number) => {
@@ -77,6 +76,11 @@ export default function PolarsAggFilter(): JSX.Element {
         <Typography variant="caption">
           Total employee numbers for the Textiles, Consumer Electronics and Military Industry
           categories
+        </Typography>
+      </Box>
+      <Box sx={{ mt: 1, mb: 1 }}>
+        <Typography variant="caption">
+          <b>Endpoint: </b>: {URL}
         </Typography>
       </Box>
       <DataGrid
