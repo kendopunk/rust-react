@@ -1,4 +1,4 @@
-#![allow(unused_imports, unused_variables)]
+#![allow(unused_imports, unused_variables, dead_code)]
 use actix_cors::Cors;
 use actix_web::{
     get, http::header::ContentType, post, web, App, HttpResponse, HttpServer, Responder,
@@ -19,9 +19,12 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         let cors = Cors::permissive();
 
-        App::new().wrap(cors).service(polars_all_data)
-        // .service(echo)
-        // .route("/hey", web::get().to(manual_hello))
+        App::new()
+            .wrap(cors)
+            .service(all_data)
+            .service(select_columns)
+            .service(agg_count)
+            .service(agg_filter)
     })
     .bind(("127.0.0.1", 3001))?
     .run()
@@ -29,50 +32,29 @@ async fn main() -> std::io::Result<()> {
 }
 
 #[get("/polars_all_data")]
-async fn polars_all_data() -> impl Responder {
-    HttpResponse::Ok().body(polars_examples::all_data_handler())
-}
-
-// #[get("/")]
-// async fn polars_all_data() -> impl Responder {
-//     HttpResponse::Ok().body("Hello world!")
-// }
-
-#[post("/echo")]
-async fn echo(req_body: String) -> impl Responder {
-    HttpResponse::Ok().body(req_body)
-}
-
-async fn manual_hello() -> impl Responder {
-    let version = std::env::var("PATH_TO_ORGANIZATION_CSV");
-    println!("{:?}", version.unwrap());
-
-    let filepath = "data/test.csv";
-    let df = CsvReader::from_path(std::env::var("PATH_TO_ORGANIZATION_CSV").unwrap())
-        .unwrap()
-        .finish();
-    // assert_eq!(df.shape(), (100, 9));
-
-    // let df = df![
-    //   "Fruit" => ["Apple", "Banana", "Pear", "Strawberry"],
-    //   "Color" => ["red", "yellow", "green", "red"],
-    //   "Purchased" => [20, 40, 100, 10]
-    // ];
-
-    let mut buf = Vec::new();
-    let x = JsonWriter::new(&mut buf)
-        .with_json_format(JsonFormat::Json)
-        .finish(&mut df.unwrap());
-
-    // https://docs.rs/polars/latest/polars/prelude/struct.JsonWriter.html
-    let result = match x {
-        Ok(()) => String::from(std::str::from_utf8(&buf).unwrap()),
-        _ => "[]".to_string(),
-    };
-
-    //let foo = String::from(std::str::from_utf8(&buf).unwrap());
-
+async fn all_data() -> impl Responder {
     HttpResponse::Ok()
         .insert_header(ContentType::json())
-        .body(result)
+        .body(polars_examples::all_data_handler())
+}
+
+#[get("/polars_select_columns")]
+async fn select_columns() -> impl Responder {
+    HttpResponse::Ok()
+        .insert_header(ContentType::json())
+        .body(polars_examples::select_columns_handler())
+}
+
+#[get("/polars_agg_count")]
+async fn agg_count() -> impl Responder {
+    HttpResponse::Ok()
+        .insert_header(ContentType::json())
+        .body(polars_examples::agg_count_handler())
+}
+
+#[get("/polars_agg_filter")]
+async fn agg_filter() -> impl Responder {
+    HttpResponse::Ok()
+        .insert_header(ContentType::json())
+        .body(polars_examples::agg_filter_handler())
 }

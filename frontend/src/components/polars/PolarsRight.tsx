@@ -7,6 +7,9 @@ import { Box, Tab, Tabs, useTheme } from '@mui/material'
 
 import PolarsAllData from './PolarsAllData'
 import PolarsTabPanel from './PolarsTabPanel'
+import PolarsSelectColumns from './PolarsSelectColumns'
+import PolarsAggCount from './PolarsAggCount'
+import PolarsAggFilter from './PolarsAggFilter'
 
 const polarsTabData: Record<string, string | number>[] = [
   {
@@ -18,6 +21,16 @@ const polarsTabData: Record<string, string | number>[] = [
     id: 1,
     label: 'Selecting Columns',
     value: 'select_columns'
+  },
+  {
+    id: 2,
+    label: 'Aggregations: Count',
+    value: 'agg_count'
+  },
+  {
+    id: 3,
+    label: 'Aggregations: Sum / Filter',
+    value: 'agg_filter'
   }
 ]
 
@@ -67,7 +80,13 @@ export default function PolarsRight(): JSX.Element {
         <PolarsAllData />
       </PolarsTabPanel>
       <PolarsTabPanel value={activeTab} index={1}>
-        <div>bar</div>
+        <PolarsSelectColumns />
+      </PolarsTabPanel>
+      <PolarsTabPanel value={activeTab} index={2}>
+        <PolarsAggCount />
+      </PolarsTabPanel>
+      <PolarsTabPanel value={activeTab} index={3}>
+        <PolarsAggFilter />
       </PolarsTabPanel>
     </Box>
   )

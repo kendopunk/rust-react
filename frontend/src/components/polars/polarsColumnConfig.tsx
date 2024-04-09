@@ -48,6 +48,12 @@ export const defaultColumnConfig: GridColDef[] = [
   {
     field: 'numEmployees',
     headerName: '# Employees',
-    flex: 1
+    flex: 1,
+    renderCell: (params: GridCellParams) => {
+      const {
+        row: { numEmployees }
+      } = params
+      return (numEmployees ?? 0).toLocaleString('en-US')
+    }
   }
 ]

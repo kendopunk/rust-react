@@ -56,7 +56,6 @@ const StyledLink = styled(Link)(
 
 const Layout: React.FC<Props> = ({ children }) => {
   const theme = useTheme()
-  console.log(process.env.REACT_APP_ACTIX_SERVER)
 
   return (
     <Wrapper>

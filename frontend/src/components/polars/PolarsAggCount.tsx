@@ -1,20 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /**
- * src/components/polars/PolarsAllData.tsx
- * All data from organizations-100.csv
+ * src/components/polars/PolarsAggCount.tsx
+ * founded, count(founded)
  */
 import { useEffect, useState } from 'react'
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { Box, Typography } from '@mui/material'
 
 import StandardLoader from '../common/StandardLoader'
 import asyncWrapper from '../../lib/async/asyncWrapper'
 import genericGetPromise from '../../lib/async/genericGetPromise'
-import { defaultColumnConfig } from './polarsColumnConfig'
 
-export default function PolarsAllData(): JSX.Element {
+export default function PolarsAggCount(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true)
   const [gridData, setGridData] = useState<any>([])
+
+  const columns: GridColDef[] = [
+    {
+      field: 'founded',
+      headerName: 'Year Founded',
+      flex: 1
+    },
+    {
+      field: 'countFounded',
+      headerName: 'count(Year Founded)',
+      flex: 1
+    }
+  ]
 
   /**
    * Add "id" property to each row of data (required for MUI grid)
@@ -30,7 +42,7 @@ export default function PolarsAllData(): JSX.Element {
 
   async function fetchData() {
     const [, data] = await asyncWrapper(
-      genericGetPromise(`${process.env.REACT_APP_ACTIX_SERVER}/polars_all_data`)
+      genericGetPromise(`${process.env.REACT_APP_ACTIX_SERVER}/polars_agg_count`)
     )
     if (data) {
       setGridData(
@@ -57,11 +69,11 @@ export default function PolarsAllData(): JSX.Element {
     <Box>
       <Box sx={{ mt: 1, mb: 1 }}>
         <Typography variant="caption">
-          Retrieving all data from the organizations CSV file
+          Aggregation by year of founding, sorted by count descending
         </Typography>
       </Box>
       <DataGrid
-        columns={defaultColumnConfig}
+        columns={columns}
         rows={addRowMetadata(gridData)}
         sx={{
           height: '70vh',

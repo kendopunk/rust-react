@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /**
- * src/components/polars/PolarsAllData.tsx
+ * src/components/polars/PolarsSelectColumns.tsx
  * All data from organizations-100.csv
  */
 import { useEffect, useState } from 'react'
@@ -12,9 +12,13 @@ import asyncWrapper from '../../lib/async/asyncWrapper'
 import genericGetPromise from '../../lib/async/genericGetPromise'
 import { defaultColumnConfig } from './polarsColumnConfig'
 
-export default function PolarsAllData(): JSX.Element {
+export default function PolarsSelectColumns(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true)
   const [gridData, setGridData] = useState<any>([])
+
+  const columns = defaultColumnConfig.filter((f) => {
+    return ['organizationId', 'name', 'industry', 'numEmployees'].indexOf(f.field) >= 0
+  })
 
   /**
    * Add "id" property to each row of data (required for MUI grid)
@@ -30,7 +34,7 @@ export default function PolarsAllData(): JSX.Element {
 
   async function fetchData() {
     const [, data] = await asyncWrapper(
-      genericGetPromise(`${process.env.REACT_APP_ACTIX_SERVER}/polars_all_data`)
+      genericGetPromise(`${process.env.REACT_APP_ACTIX_SERVER}/polars_select_columns`)
     )
     if (data) {
       setGridData(
@@ -56,12 +60,10 @@ export default function PolarsAllData(): JSX.Element {
   return (
     <Box>
       <Box sx={{ mt: 1, mb: 1 }}>
-        <Typography variant="caption">
-          Retrieving all data from the organizations CSV file
-        </Typography>
+        <Typography variant="caption">Using Polars to select specific columns</Typography>
       </Box>
       <DataGrid
-        columns={defaultColumnConfig}
+        columns={columns}
         rows={addRowMetadata(gridData)}
         sx={{
           height: '70vh',
