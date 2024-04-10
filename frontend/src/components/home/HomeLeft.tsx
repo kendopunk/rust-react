@@ -9,7 +9,7 @@ export default function HomeLeft(): JSX.Element {
   return (
     <>
       <Typography variant="h6" sx={{ color: theme.palette.grey[600] }}>
-        Welcome
+        Hey!
       </Typography>
     </>
   )
