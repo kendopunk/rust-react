@@ -84,13 +84,13 @@ export default function SerdeJsonMacro(): JSX.Element {
   return (
     <Box>
       <Box sx={{ mt: 1, mb: 1 }}>
-        <Typography variant="caption">
+        <Typography variant="body2">
           Using the json!() macro to create and return JSON-formatted data for some of the best
           selling albums of all time
         </Typography>
       </Box>
       <Box sx={{ mt: 1, mb: 1 }}>
-        <Typography variant="caption">
+        <Typography variant="body2">
           <b>Endpoint: </b>: {URL}
         </Typography>
       </Box>
