@@ -73,13 +73,13 @@ export default function PolarsAggFilter(): JSX.Element {
   return (
     <Box>
       <Box sx={{ mt: 1, mb: 1 }}>
-        <Typography variant="caption">
+        <Typography variant="body2">
           Total employee numbers for the Textiles, Consumer Electronics and Military Industry
           categories
         </Typography>
       </Box>
       <Box sx={{ mt: 1, mb: 1 }}>
-        <Typography variant="caption">
+        <Typography variant="body2">
           <b>Endpoint: </b>: {URL}
         </Typography>
       </Box>

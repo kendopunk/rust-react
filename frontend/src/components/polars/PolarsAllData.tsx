@@ -56,12 +56,10 @@ export default function PolarsAllData(): JSX.Element {
   return (
     <Box>
       <Box sx={{ mt: 1, mb: 1 }}>
-        <Typography variant="caption">
-          Retrieving all data from the organizations CSV file
-        </Typography>
+        <Typography variant="body2">Retrieving all data from the organizations CSV file</Typography>
       </Box>
       <Box sx={{ mt: 1, mb: 1 }}>
-        <Typography variant="caption">
+        <Typography variant="body2">
           <b>Endpoint: </b>: {URL}
         </Typography>
       </Box>

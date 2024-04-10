@@ -12,7 +12,7 @@ export default function SerdeLeft(): JSX.Element {
         Serde
       </Typography>
       <Box sx={{ mb: 1 }}>
-        <Typography variant="body2">
+        <Typography variant="body1">
           <a href="https://serde.rs/" target="_blank" className="hyperlink">
             Serde
           </a>{' '}
@@ -21,13 +21,13 @@ export default function SerdeLeft(): JSX.Element {
         </Typography>
       </Box>
       <Box sx={{ mb: 1 }}>
-        <Typography variant="body2">
+        <Typography variant="body1">
           In the first tab, we are using the json!() macro to construct a serde_json::Value from a
           JSON literal.
         </Typography>
       </Box>
       <Box sx={{ mb: 1 }}>
-        <Typography variant="body2">
+        <Typography variant="body1">
           In the second tab, we are creating a vector of CustomerOrder structs, generating it
           dynamically with the fake crate, and serializing with Serde through the Actix server.
         </Typography>

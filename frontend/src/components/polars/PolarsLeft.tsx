@@ -13,7 +13,7 @@ export default function PolarsLeft(): JSX.Element {
         Polars
       </Typography>
       <Box sx={{ mb: 1 }}>
-        <Typography variant="body2">
+        <Typography variant="body1">
           <a href="https://pola.rs" target="_blank" className="hyperlink">
             Polars
           </a>{' '}
@@ -22,7 +22,7 @@ export default function PolarsLeft(): JSX.Element {
         </Typography>
       </Box>
       <Box sx={{ mb: 1 }}>
-        <Typography variant="body2">
+        <Typography variant="body1">
           In the following examples, we are reading the <i>organizations-100.csv</i> file into a
           DataFrame via the actix-web server and then using common select / aggregation mechanisms
           to display the information in variety of ways through Material UI's &lt;Grid&gt;

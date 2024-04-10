@@ -67,12 +67,12 @@ export default function PolarsAggCount(): JSX.Element {
   return (
     <Box>
       <Box sx={{ mt: 1, mb: 1 }}>
-        <Typography variant="caption">
+        <Typography variant="body2">
           Aggregation by year of founding, sorted by count descending
         </Typography>
       </Box>
       <Box sx={{ mt: 1, mb: 1 }}>
-        <Typography variant="caption">
+        <Typography variant="body2">
           <b>Endpoint: </b>: {URL}
         </Typography>
       </Box>
