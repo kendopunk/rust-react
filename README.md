@@ -56,7 +56,16 @@ $> yarn start
 
 ## Troubleshooting
 
-If you're having trouble with some of the Polars implementations, try running `rustup update`.
+If you see this Polars error, try running `rustup update`
+
+```
+...physical_plan/executors/scan/csv.rs:21:18
+   |
+21 |             .map(Arc::unwrap_or_clone);
+   |                  ^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: see issue #93610 <https://github.com/rust-lang/rust/issues/93610> for more information
+```
 
 ## @TODO / Future / Random Thoughts
 
