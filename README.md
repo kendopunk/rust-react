@@ -10,7 +10,7 @@ I recently expanded the application to include some Serde implementations of ser
 
 ## TL/DR
 
-The repo has two parts - the backend Actix server (`actix-backend`) and the React application (`frontend`).
+The repo has two parts - the backend Actix server (`actix-backend`) and the React application (`frontend`) taking advantage of some [Material UI](https://mui.com/material-ui/) components.
 
 ## Requirements
 
@@ -25,6 +25,8 @@ The repo has two parts - the backend Actix server (`actix-backend`) and the Reac
 # Cargo Watch watches over your project's source for changes, and runs Cargo commands when they occur.
 $> cargo install cargo-watch
 ```
+
+The Polars examples read from a CSV file called `organizations-100.csv` located in `actix-backend/static`. In `actix-backend/.cargo/config.toml`, please provide the full path to this file as it appears in your filesystem.
 
 ```sh
 # run the server
