@@ -37,7 +37,7 @@ const polarsTabData: Record<string, string | number>[] = [
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simpleVisualizerTabPanel-${index}`
+    'aria-controls': `polarsTabPanel-${index}`
   }
 }
 

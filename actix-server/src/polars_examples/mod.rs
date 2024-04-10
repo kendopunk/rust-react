@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+#![allow(dead_code, rustdoc::invalid_html_tags)]
 
 use polars::prelude::*;
 
@@ -21,9 +21,10 @@ fn vec_to_json(buffer: &mut Vec<u8>, df: &mut DataFrame) -> Result<(), PolarsErr
 /// let s: String = all_data_handler()
 /// ```
 pub fn all_data_handler() -> String {
-    let df = CsvReader::from_path(std::env::var("PATH_TO_ORGANIZATION_CSV").unwrap())
-        .unwrap()
-        .finish();
+    let df: Result<DataFrame, PolarsError> =
+        CsvReader::from_path(std::env::var("PATH_TO_ORGANIZATION_CSV").unwrap())
+            .unwrap()
+            .finish();
 
     let mut buf = Vec::new();
     let json = vec_to_json(&mut buf, &mut df.unwrap());
@@ -107,12 +108,12 @@ pub fn agg_count_handler() -> String {
     result
 }
 
-/// Aggregations - count occurences of founding date
+/// Aggregations - count total employees for select industry categories
 ///
 /// # Examples
 ///
 /// ```
-/// let s: String = agg_count_handler()
+/// let s: String = agg_filter_handler()
 /// ```
 pub fn agg_filter_handler() -> String {
     let df = CsvReader::from_path(std::env::var("PATH_TO_ORGANIZATION_CSV").unwrap())

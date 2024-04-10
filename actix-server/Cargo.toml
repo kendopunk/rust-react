@@ -7,6 +7,7 @@ edition = "2021"
 actix-cors = "0.7.0"
 actix-web = "4.5.1"
 copy_to_output = "2.2.0"
+fake = { version = "2.9.2", features = ["derive"] }
 glob = "0.3.1"
 polars = { version = "0.38.3", features = ["lazy", "strings", "json", "dtype-struct"] }
 serde = { version = "1.0.197", features = ["derive"] }

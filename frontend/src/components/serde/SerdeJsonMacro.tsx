@@ -1,25 +1,50 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /**
- * src/components/polars/PolarsSelectColumns.tsx
- * Specific columns from organizations-100.csv
+ * src/components/serde/SerdeJsonMacro.tsx
+ * Using the json!() macro
  */
 import { useEffect, useState } from 'react'
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid'
 import { Box, Typography } from '@mui/material'
 
 import StandardLoader from '../common/StandardLoader'
 import asyncWrapper from '../../lib/async/asyncWrapper'
 import genericGetPromise from '../../lib/async/genericGetPromise'
-import { defaultColumnConfig } from './polarsColumnConfig'
 
-export default function PolarsSelectColumns(): JSX.Element {
+export default function SerdeJsonMacro(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true)
   const [gridData, setGridData] = useState<any>([])
-  const URL = `${process.env.REACT_APP_ACTIX_SERVER}/polars_select_columns`
 
-  const columns = defaultColumnConfig.filter((f) => {
-    return ['organizationId', 'name', 'industry', 'numEmployees'].indexOf(f.field) >= 0
-  })
+  const URL = `${process.env.REACT_APP_ACTIX_SERVER}/serde_json_macro`
+
+  const columns: GridColDef[] = [
+    {
+      field: 'artist',
+      headerName: 'Artist',
+      flex: 1
+    },
+    {
+      field: 'title',
+      headerName: 'Album Title',
+      flex: 1
+    },
+    {
+      field: 'release_date',
+      headerName: 'Released',
+      flex: 1
+    },
+    {
+      field: 'sold',
+      headerName: 'Sold',
+      flex: 1,
+      renderCell: (params: GridCellParams) => {
+        const {
+          row: { sold }
+        } = params
+        return (sold ?? 0).toLocaleString('en-US')
+      }
+    }
+  ]
 
   /**
    * Add "id" property to each row of data (required for MUI grid)
@@ -37,7 +62,7 @@ export default function PolarsSelectColumns(): JSX.Element {
     const [, data] = await asyncWrapper(genericGetPromise(URL))
     if (data) {
       setGridData(
-        (data?.data ?? []).map((m: any, index: number) => {
+        (data?.data?.albums ?? []).map((m: any, index: number) => {
           return {
             ...m,
             id: index
@@ -59,7 +84,10 @@ export default function PolarsSelectColumns(): JSX.Element {
   return (
     <Box>
       <Box sx={{ mt: 1, mb: 1 }}>
-        <Typography variant="caption">Using Polars to select specific columns</Typography>
+        <Typography variant="caption">
+          Using the json!() macro to create and return JSON-formatted data for some of the best
+          selling albums of all time
+        </Typography>
       </Box>
       <Box sx={{ mt: 1, mb: 1 }}>
         <Typography variant="caption">
