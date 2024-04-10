@@ -1,2 +1,2 @@
 [env]
-PATH_TO_ORGANIZATION_CSV ="/Users/mfehr/workspace/sandbox/rust/rust-react/actix-server/static/organizations-100.csv"
+PATH_TO_ORGANIZATION_CSV ="/path/to/your/organizations-100.csv"
