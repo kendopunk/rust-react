@@ -26,7 +26,7 @@ The repo has two parts - the backend Actix server (`actix-backend`) and the Reac
 $> cargo install cargo-watch
 ```
 
-The Polars examples read from a CSV file called `organizations-100.csv` located in `actix-backend/static`. In `actix-backend/.cargo/config.toml`, please provide the full path to this file as it appears in your filesystem.
+The Polars examples read from a CSV file called `organizations-100.csv` located in `actix-backend/static`.
 
 ```sh
 # run the server

@@ -1,6 +1,14 @@
 #![allow(dead_code, rustdoc::invalid_html_tags)]
 
 use polars::prelude::*;
+use std::path::PathBuf;
+
+///
+/// Get the path to organizations-100.csv
+///
+fn get_org_csv_path() -> PathBuf {
+    "./static/organizations-100.csv".parse().unwrap()
+}
 
 ///
 /// Convert a Vec<u8> to JSON using the DataFrame
@@ -22,9 +30,7 @@ fn vec_to_json(buffer: &mut Vec<u8>, df: &mut DataFrame) -> Result<(), PolarsErr
 /// ```
 pub fn all_data_handler() -> String {
     let df: Result<DataFrame, PolarsError> =
-        CsvReader::from_path(std::env::var("PATH_TO_ORGANIZATION_CSV").unwrap())
-            .unwrap()
-            .finish();
+        CsvReader::from_path(get_org_csv_path()).unwrap().finish();
 
     let mut buf = Vec::new();
     let json = vec_to_json(&mut buf, &mut df.unwrap());
@@ -46,9 +52,7 @@ pub fn all_data_handler() -> String {
 /// let s: String = select_columns_handler()
 /// ```
 pub fn select_columns_handler() -> String {
-    let df = CsvReader::from_path(std::env::var("PATH_TO_ORGANIZATION_CSV").unwrap())
-        .unwrap()
-        .finish();
+    let df = CsvReader::from_path(get_org_csv_path()).unwrap().finish();
 
     let mut buf = Vec::new();
     let json = vec_to_json(
@@ -75,9 +79,7 @@ pub fn select_columns_handler() -> String {
 /// let s: String = agg_count_handler()
 /// ```
 pub fn agg_count_handler() -> String {
-    let df = CsvReader::from_path(std::env::var("PATH_TO_ORGANIZATION_CSV").unwrap())
-        .unwrap()
-        .finish();
+    let df = CsvReader::from_path(get_org_csv_path()).unwrap().finish();
 
     let mut founded_agg_df = df
         .as_ref()
@@ -116,9 +118,7 @@ pub fn agg_count_handler() -> String {
 /// let s: String = agg_filter_handler()
 /// ```
 pub fn agg_filter_handler() -> String {
-    let df = CsvReader::from_path(std::env::var("PATH_TO_ORGANIZATION_CSV").unwrap())
-        .unwrap()
-        .finish();
+    let df = CsvReader::from_path(get_org_csv_path()).unwrap().finish();
 
     let mut agg_filter_df = df
         .as_ref()
