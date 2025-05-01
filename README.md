@@ -44,11 +44,13 @@ $> cargo doc --no-deps
 
 ## actix-backend: Docker
 
+````sh
 $> cd actix-backend
 $> docker build -f Dockerfile.backend -t actix-backend .
 $> docker run -d -p 8080:8080 actix-backend
 $> curl -X GET "http://localhost:8080/health" \
  -H "Content-Type: application/json"
+ ```
 
 ## Setting Up and Running frontend
 
@@ -60,7 +62,7 @@ $> nvm use
 $> yarn
 $> yarn start
 # open http://localhost:3000
-```
+````
 
 ## Troubleshooting
 
