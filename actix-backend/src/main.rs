@@ -7,6 +7,7 @@ use actix_web::{
 use polars::prelude::*;
 use serde::{Deserialize, Serialize};
 
+mod health;
 mod polars_examples;
 mod serde_examples;
 
@@ -18,11 +19,16 @@ struct W {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    // Get the port from the environment, defaulting to 8080
+    let port = std::env::var("PORT").unwrap_or_else(|_| "8080".to_string());
+    let addr = format!("0.0.0.0:{}", port);
+
     HttpServer::new(|| {
         let cors = Cors::permissive();
 
         App::new()
             .wrap(cors)
+            .service(health_check)
             .service(all_data)
             .service(select_columns)
             .service(agg_count)
@@ -30,9 +36,19 @@ async fn main() -> std::io::Result<()> {
             .service(serde_json_macro)
             .service(serde_struct_json)
     })
-    .bind(("127.0.0.1", 3001))?
+    .bind(("0.0.0.0", port.parse().unwrap()))?
     .run()
     .await
+}
+
+///
+/// health check
+///
+#[get("/health")]
+async fn health_check() -> impl Responder {
+    HttpResponse::Ok()
+        .insert_header(ContentType::json())
+        .body(health::health_check_handler().to_string())
 }
 
 ///
