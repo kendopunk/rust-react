@@ -56,12 +56,14 @@ $> curl -X GET "http://localhost:8080/health" \
 
 ```sh
 $> cd frontend
+
 # if using nvm
 $> nvm use
-# install dependencies
-$> yarn
-$> yarn start
-# open http://localhost:3000
+
+# install dependencies + start server
+$> npm i
+$> npm run start
+# Will be running on http://localhost:3000
 ```
 
 ## Troubleshooting
