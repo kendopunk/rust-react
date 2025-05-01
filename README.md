@@ -44,13 +44,13 @@ $> cargo doc --no-deps
 
 ## actix-backend: Docker
 
-````sh
+```sh
 $> cd actix-backend
 $> docker build -f Dockerfile.backend -t actix-backend .
 $> docker run -d -p 8080:8080 actix-backend
 $> curl -X GET "http://localhost:8080/health" \
  -H "Content-Type: application/json"
- ```
+```
 
 ## Setting Up and Running frontend
 
@@ -62,11 +62,20 @@ $> nvm use
 $> yarn
 $> yarn start
 # open http://localhost:3000
-````
+```
 
 ## Troubleshooting
 
-If you're having trouble with some of the Polars implementations, try running `rustup update`.
+If you see this Polars error, try running `rustup update`
+
+```
+...physical_plan/executors/scan/csv.rs:21:18
+   |
+21 |             .map(Arc::unwrap_or_clone);
+   |                  ^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: see issue #93610 <https://github.com/rust-lang/rust/issues/93610> for more information
+```
 
 ## @TODO / Future / Random Thoughts
 
