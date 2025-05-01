@@ -82,5 +82,6 @@ If you see this Polars error, try running `rustup update`
 ## @TODO / Future / Random Thoughts
 
 - Integrate a database like Postgres, using [Diesel](https://diesel.rs/) or similar
+- GCP BigQuery implementation
 - WebSockets examples
 - GraphQL
