@@ -2,11 +2,11 @@
 
 Using Rust and React together.
 
-I began studying the [Polars](https://pola.rs/) data frame library a few months back (Feb 2024) and wanted to see if I could use it in a Rust web framework to pass DF information through to a React frontend.
+After playing around with the [Polars](https://pola.rs/) data frame library, I wanted to see if I could use it in a Rust web framework to pass DF information through to a React frontend.
 
-Turns out I could...with the help of [Actix](https://actix.rs/).
+With the help of [Actix](https://actix.rs/) this is possible.
 
-I recently expanded the application to include some Serde implementations of serializing / deserializing.
+I expanded the application to include some Serde implementations of serializing / deserializing.
 
 ## TL/DR
 
